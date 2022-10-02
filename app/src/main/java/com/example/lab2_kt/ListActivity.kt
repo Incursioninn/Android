@@ -8,49 +8,42 @@ import android.widget.EditText
 import android.widget.ListAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lab2_kt.databinding.LogicActivityBinding
 
 
 class ListActivity : AppCompatActivity() {
 
-    private lateinit var addButton: Button
-    private lateinit var deleteButton: Button
-    private lateinit var list: ListView
+
+    private lateinit var binding : LogicActivityBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.logic_activity)
-
-        list = findViewById(R.id.textList)
-        addButton = findViewById(R.id.buttonLeft)
-        deleteButton = findViewById(R.id.buttonRight)
-
-
-
+        binding = LogicActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         var addArray  = mutableListOf<String>()
         val textAdapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, addArray)
-        list.adapter = textAdapter
-        val adderList : EditText = findViewById(R.id.editTextList)
+        binding.textList.adapter = textAdapter
 
-        addButton.setOnClickListener(){
+        binding.buttonLeft.setOnClickListener(){
 
-            addArray.add(adderList.text.toString())
-            list.adapter = textAdapter
+            addArray.add(binding.editTextList.text.toString())
+            binding.textList.adapter = textAdapter
 
         }
 
-        deleteButton.setOnClickListener(){
+        binding.buttonRight.setOnClickListener(){
             if(addArray.isNotEmpty()){
              addArray.removeLast()
             }
 
-            list.adapter = textAdapter
+            binding.textList.adapter = textAdapter
 
         }
 
-        findViewById<Button>(R.id.buttonExit).setOnClickListener(){
+       binding.buttonExit.setOnClickListener(){
             switchActivities()
         }
 
